@@ -1,0 +1,28 @@
+{
+  "name": "gcpi",
+  "version": "1.0.0",
+  "description": "Get client page info",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rosivanov/gcpi.git"
+  },
+  "author": "ros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rosivanov/gcpi/issues"
+  },
+  "homepage": "https://github.com/rosivanov/gcpi#readme",
+  "dependencies": {
+    "ua-parser-js": "^0.7.14"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-include": "^2.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0"
+  }
+}
