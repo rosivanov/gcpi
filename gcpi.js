@@ -4,9 +4,9 @@ import UAParser from 'ua-parser-js';
 'use strict';
 (function() {
 
-	var GCI = {
+	var GCPI = {
 		check_hash: function () {
-			if ( window.location.hash === '#debug' ) GCI.add_info();
+			if ( window.location.hash === '#debug' ) GCPI.add_info();
 			return;
 		},
 		add_info: function () {
@@ -56,7 +56,7 @@ import UAParser from 'ua-parser-js';
 			return;
 		}
 	};
-	window.addEventListener('hashchange', function() { GCI.check_hash() }, false);
-	GCI.check_hash();
+	window.addEventListener('hashchange', function() { GCPI.check_hash() }, false);
+	GCPI.check_hash();
 
 })();
