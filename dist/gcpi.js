@@ -1,4 +1,145 @@
-/**
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ua_parser_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ua_parser_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ua_parser_js__);
+//=include ./node_modules/ua-parser-js/src/ua-parser.js
+
+
+'use stict';
+(function() {
+
+	var GCI = {
+		check_hash: function () {
+			if ( window.location.hash === '#debug' ) GCI.add_info();
+			return;
+		},
+		add_info: function () {
+			var info_div,
+			html = '',
+			uaparser = new __WEBPACK_IMPORTED_MODULE_0_ua_parser_js___default.a(),
+			uaobject = uaparser.getResult();
+
+			for (var category in uaobject) {
+				if ( uaobject[category] === 'ua' || typeof uaobject[category] !== 'object' ) continue;
+				html += '<div>'+ category +'</div>';
+				for (var category_item in uaobject[category]) {
+					html += '<div>'+ category_item + ': '+ uaobject[category][category_item] +'</div>';
+				}
+			}
+
+			html += '<div>screen</div>';
+			html += '<div>screen width: '+ window.screen.width +'</div>';
+			html += '<div>screen availWidth: '+ window.screen.availWidth +'</div>';
+			html += '<div>screen height: '+ window.screen.height +'</div>';
+			html += '<div>screen availHeight: '+ window.screen.availHeight +'</div>';
+			html += '<div>viewport</div>';
+			html += '<div>viewport width: '+ window.innerWidth +'</div>';
+			html += '<div>viewport height: '+ window.innerHeight +'</div>';
+			html += '<div>document</div>';
+			html += '<div>documentEl clientWidth: '+ document.documentElement.clientWidth +'</div>';
+			html += '<div>documentEl offsetWidth: '+ document.documentElement.offsetWidth +'</div>';
+			html += '<div>documentEl scrollWidth: '+ document.documentElement.scrollWidth +'</div>';
+			html += '<div>documentEl clientHeight: '+ document.documentElement.clientHeight +'</div>';
+			html += '<div>documentEl offsetHeight: '+ document.documentElement.offsetHeight +'</div>';
+			html += '<div>documentEl scrollHeight: '+ document.documentElement.scrollHeight +'</div>';
+
+			info_div = document.createElement('div');
+			info_div.style.cssText = "position: fixed; \
+				top: 0px; \
+				left: 0px; \
+				bottom: 0px; \
+				z-index: 999; \
+				overflow: auto; \
+				padding: 1rem; \
+				color: #000; \
+				background-color: rgba(255, 255, 255, 0.9); \
+				font-family: monospace; \
+			";
+			info_div.innerHTML = html;
+			document.body.appendChild(info_div);
+			return;
+		}
+	};
+	window.addEventListener('hashchange', function() { GCI.check_hash() }, false);
+	GCI.check_hash();
+
+})();
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * UAParser.js v0.7.14
  * Lightweight JavaScript-based User-Agent string parser
  * https://github.com/faisalman/ua-parser-js
@@ -999,10 +1140,11 @@
         exports.UAParser = UAParser;
     } else {
         // requirejs env (optional)
-        if (typeof(define) === FUNC_TYPE && define.amd) {
-            define(function () {
+        if ("function" === FUNC_TYPE && __webpack_require__(2)) {
+            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
                 return UAParser;
-            });
+            }.call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
         } else if (window) {
             // browser env
             window.UAParser = UAParser;
@@ -1033,61 +1175,14 @@
 })(typeof window === 'object' ? window : this);
 
 
-(function() {
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
 
-	var GCI = {
-		check_hash: function () {
-			if ( window.location.hash === '#debug' ) GCI.add_info();
-			return;
-		},
-		add_info: function () {
-			var info_div,
-			html = '',
-			uaparser = new UAParser(),
-			uaobject = uaparser.getResult();
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
 
-			for (var category in uaobject) {
-				if ( uaobject[category] === 'ua' || typeof uaobject[category] !== 'object' ) continue;
-				html += '<div>'+ category +'</div>';
-				for (var category_item in uaobject[category]) {
-					html += '<div>'+ category_item + ': '+ uaobject[category][category_item] +'</div>';
-				}
-			}
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
-			html += '<div>screen</div>';
-			html += '<div>screen width: '+ window.screen.width +'</div>';
-			html += '<div>screen availWidth: '+ window.screen.availWidth +'</div>';
-			html += '<div>screen height: '+ window.screen.height +'</div>';
-			html += '<div>screen availHeight: '+ window.screen.availHeight +'</div>';
-			html += '<div>viewport</div>';
-			html += '<div>viewport width: '+ window.innerWidth +'</div>';
-			html += '<div>viewport height: '+ window.innerHeight +'</div>';
-			html += '<div>document</div>';
-			html += '<div>documentEl clientWidth: '+ document.documentElement.clientWidth +'</div>';
-			html += '<div>documentEl offsetWidth: '+ document.documentElement.offsetWidth +'</div>';
-			html += '<div>documentEl scrollWidth: '+ document.documentElement.scrollWidth +'</div>';
-			html += '<div>documentEl clientHeight: '+ document.documentElement.clientHeight +'</div>';
-			html += '<div>documentEl offsetHeight: '+ document.documentElement.offsetHeight +'</div>';
-			html += '<div>documentEl scrollHeight: '+ document.documentElement.scrollHeight +'</div>';
-
-			info_div = document.createElement('div');
-			info_div.style.cssText = "position: fixed; \
-				top: 0; \
-				left: 0; \
-				bottom: 0; \
-				z-index: 999; \
-				overflow: auto; \
-				padding: 1rem; \
-				color: #000; \
-				background-color: rgba(255, 255, 255, 0.9); \
-				font-family: monospace; \
-			";
-			info_div.innerHTML = html;
-			document.body.appendChild(info_div);
-			return;
-		}
-	};
-	window.addEventListener('hashchange', function() { GCI.check_hash() }, false);
-	GCI.check_hash();
-
-})();
+/***/ })
+/******/ ]);

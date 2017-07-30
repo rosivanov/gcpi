@@ -1,5 +1,7 @@
 //=include ./node_modules/ua-parser-js/src/ua-parser.js
+import UAParser from 'ua-parser-js';
 
+'use stict';
 (function() {
 
 	var GCI = {
@@ -39,9 +41,9 @@
 
 			info_div = document.createElement('div');
 			info_div.style.cssText = "position: fixed; \
-				top: 0; \
-				left: 0; \
-				bottom: 0; \
+				top: 0px; \
+				left: 0px; \
+				bottom: 0px; \
 				z-index: 999; \
 				overflow: auto; \
 				padding: 1rem; \

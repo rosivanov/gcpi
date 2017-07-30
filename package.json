@@ -4,7 +4,9 @@
   "description": "Get client page info",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"webpack": "webpack gcpi.js dist/gcpi.js",
+	"build": "webpack gcpi.js dist/gcpi.js && webpack gcpi.js dist/gcpi.min.js --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
     "gulp": "^3.9.1",
     "gulp-include": "^2.3.1",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0"
+    "gulp-uglify": "^3.0.0",
+    "webpack": "^3.4.1"
   }
 }
