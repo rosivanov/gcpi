@@ -74,12 +74,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //=include ./node_modules/ua-parser-js/src/ua-parser.js
 
 
-'use stict';
+'use strict';
 (function() {
 
-	var GCI = {
+	var GCPI = {
 		check_hash: function () {
-			if ( window.location.hash === '#debug' ) GCI.add_info();
+			if ( window.location.hash === '#debug' ) GCPI.add_info();
 			return;
 		},
 		add_info: function () {
@@ -129,8 +129,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return;
 		}
 	};
-	window.addEventListener('hashchange', function() { GCI.check_hash() }, false);
-	GCI.check_hash();
+	window.addEventListener('hashchange', function() { GCPI.check_hash() }, false);
+	GCPI.check_hash();
 
 })();
 
