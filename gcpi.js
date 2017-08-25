@@ -5,6 +5,16 @@ import UAParser from 'ua-parser-js';
 (function() {
 
 	var GCPI = {
+		styles: 'position: fixed; \
+			top: 0px; \
+			left: 0px; \
+			bottom: 0px; \
+			z-index: 999; \
+			overflow: auto; \
+			padding: 1rem; \
+			color: #000; \
+			background-color: rgba(255, 255, 255, 0.9); \
+			font-family: monospace;',
 		check_hash: function () {
 			if ( window.location.hash === '#debug' ) GCPI.add_info();
 			return;
@@ -40,17 +50,7 @@ import UAParser from 'ua-parser-js';
 			html += '<div>documentEl scrollHeight: '+ document.documentElement.scrollHeight +'</div>';
 
 			info_div = document.createElement('div');
-			info_div.style.cssText = "position: fixed; \
-				top: 0px; \
-				left: 0px; \
-				bottom: 0px; \
-				z-index: 999; \
-				overflow: auto; \
-				padding: 1rem; \
-				color: #000; \
-				background-color: rgba(255, 255, 255, 0.9); \
-				font-family: monospace; \
-			";
+			info_div.style.cssText = GCPI.styles;
 			info_div.innerHTML = html;
 			document.body.appendChild(info_div);
 			return;

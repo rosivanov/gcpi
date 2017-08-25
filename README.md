@@ -13,3 +13,6 @@ npm install --save-prod rosivanov/gcpi
 ```js
 import 'gcpi/dist/gcpi.min.js';
 ```
+## Modify and build
+1. add changes to gcpi.js
+2. run `npm run build`
