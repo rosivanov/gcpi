@@ -143,7 +143,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			html += '<div>documentEl clientHeight: '+ document.documentElement.clientHeight +'</div>';
 			html += '<div>documentEl offsetHeight: '+ document.documentElement.offsetHeight +'</div>';
 			html += '<div>documentEl scrollHeight: '+ document.documentElement.scrollHeight +'</div>';
-			html += '<div>documentEl scrollHeight: '+ document.documentElement.scrollHeight +'</div>';
 
 			html += '<button data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
 
