@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"webpack": "webpack gcpi.js dist/gcpi.js",
-	"build": "webpack gcpi.js dist/gcpi.js && webpack gcpi.js dist/gcpi.min.js --optimize-minimize"
+    "webpack": "webpack gcpi.js dist/gcpi.js",
+    "build": "webpack gcpi.js dist/gcpi.js && webpack gcpi.js dist/gcpi.min.js --optimize-minimize"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rosivanov/gcpi#readme",
   "dependencies": {
+    "clipboard": "^1.7.1",
     "ua-parser-js": "^0.7.14"
   },
   "devDependencies": {
