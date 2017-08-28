@@ -65,15 +65,16 @@ var GCPI = {
 		}
 
 		// add copy btn
-		html += '<button data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
+		html += '<button class="gcpi__clipboard" data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
 
 		// add div
 		info_div = document.createElement('div');
+		info_div.className = 'gcpi';
 		info_div.style.cssText = GCPI.styles;
 		info_div.innerHTML = html;
 		document.body.appendChild(info_div);
 
-		new Clipboard('button[data-clipboard-text]'); // init Clipboard
+		new Clipboard('.gcpi__clipboard'); // init Clipboard
 
 		return;
 	}
