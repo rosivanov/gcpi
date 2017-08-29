@@ -73,7 +73,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ua_parser_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ua_parser_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clipboard__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_clipboard__);
-//=include ./node_modules/ua-parser-js/src/ua-parser.js
+//#=include ./node_modules/ua-parser-js/src/ua-parser.js
 
 
 
@@ -140,15 +140,16 @@ var GCPI = {
 		}
 
 		// add copy btn
-		html += '<button data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
+		html += '<button class="gcpi__clipboard" data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
 
 		// add div
 		info_div = document.createElement('div');
+		info_div.className = 'gcpi';
 		info_div.style.cssText = GCPI.styles;
 		info_div.innerHTML = html;
 		document.body.appendChild(info_div);
 
-		new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a('button[data-clipboard-text]'); // init Clipboard
+		new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a('.gcpi__clipboard'); // init Clipboard
 
 		return;
 	}
