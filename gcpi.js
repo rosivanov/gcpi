@@ -1,4 +1,4 @@
-//=include ./node_modules/ua-parser-js/src/ua-parser.js
+//#=include ./node_modules/ua-parser-js/src/ua-parser.js
 import UAParser from 'ua-parser-js';
 import Clipboard from 'clipboard';
 
