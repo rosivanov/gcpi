@@ -14,70 +14,123 @@ var GCPI = {
 		color: #000; \
 		background-color: rgba(255, 255, 255, 0.9); \
 		font-family: monospace;',
-	check_hash: function () {
-		if ( window.location.hash === '#debug' ) GCPI.add_info();
-		return;
+
+	uaobject: new UAParser().getResult(),
+
+	'screen': {
+		'screen width': function () { return window.screen.width },
+		'screen availWidth': function () { return window.screen.availWidth },
+		'screen height': function () { return window.screen.height },
+		'screen availHeight': function () { return window.screen.availHeight }
 	},
-	add_info: function () {
-		var info_div,
-		html = '',
-		clipboard = '',
-		uaparser = new UAParser(),
-		uaobject = uaparser.getResult(),
-		groups = {
-			'screen': {
-				'screen width': window.screen.width,
-				'screen availWidth': window.screen.availWidth,
-				'screen height': window.screen.height,
-				'screen availHeight': window.screen.availHeight
-			},
-			'viewport': {
-				'viewport width': window.innerWidth,
-				'viewport height': window.innerHeight
-			},
-			'document': {
-				'documentEl clientWidth': document.documentElement.clientWidth,
-				'documentEl offsetWidth': document.documentElement.offsetWidth,
-				'documentEl scrollWidth': document.documentElement.scrollWidth,
-				'documentEl clientHeight': document.documentElement.clientHeight,
-				'documentEl offsetHeight': document.documentElement.offsetHeight,
-				'documentEl scrollHeight': document.documentElement.scrollHeight
-			}
-		};
+	'viewport': {
+		'viewport width': function() { return window.innerWidth },
+		'viewport height': function () { return window.innerHeight }
+	},
+	'document': {
+		'documentEl clientWidth': function () { return document.documentElement.clientWidth },
+		'documentEl offsetWidth': function () { return document.documentElement.offsetWidth },
+		'documentEl scrollWidth': function () { return document.documentElement.scrollWidth },
+		'documentEl clientHeight': function () { return document.documentElement.clientHeight },
+		'documentEl offsetHeight': function () { return document.documentElement.offsetHeight },
+		'documentEl scrollHeight': function () { return document.documentElement.scrollHeight }
+	},
 
-		for (var category in uaobject) {
-			if ( uaobject[category] === 'ua' || typeof uaobject[category] !== 'object' ) continue;
-			html += '<div>'+ category +'</div>';
-			clipboard += category + '\r\n';
-			for (var category_item in uaobject[category]) {
-				html += '<div>'+ category_item + ': '+ uaobject[category][category_item] +'</div>';
-				clipboard += category_item + ': '+ uaobject[category][category_item] + '\r\n';
+	check_hash: function () {
+		if ( window.location.hash === '#debug' ) return true;
+		return false;
+	},
+
+	collect_uaobject: function () {
+		var rows = [];
+		for (var category in GCPI.uaobject) {
+			if ( GCPI.uaobject[category] === 'ua' || typeof GCPI.uaobject[category] !== 'object' ) continue;
+			rows.push( category );
+			for (var category_item in GCPI.uaobject[category]) {
+				rows.push( category_item + ': '+ GCPI.uaobject[category][category_item] );
 			}
 		}
+		return rows;
+	},
 
-		for (var group in groups) {
-			html += '<div>' + group + '</div>';
-			clipboard += group + '\r\n';
-			for (var groupe_item in groups[group]) {
-				html += '<div>' + groupe_item + ': ' + groups[group][groupe_item] + '</div>';
-				clipboard += groupe_item + ': ' + groups[group][groupe_item] + '\r\n';
+	collect_dimensions: function () {
+		var rows = [],
+		dims = ['screen', 'viewport', 'document'];
+		for (var index in dims) {
+			var group = dims[index];
+			rows.push( group );
+			for (var groupe_item in GCPI[group]) {
+				rows.push( groupe_item + ': ' + GCPI[group][groupe_item]() );
 			}
 		}
+		return rows;
+	},
+
+	append: function () {
+		var html = '', clipboard = '';
+
+		// add uaobject
+		html += '<div class="gcpi__uaobject">';
+		var uaobject_array = GCPI.collect_uaobject();
+		for (var k=0; k < uaobject_array.length; k++) {
+			html += '<div>' + uaobject_array[k] + '</div>';
+			clipboard += uaobject_array[k] + '\r\n';
+		}
+		html += '</div>';
+
+		// add dimensions
+		html += '<div class="gcpi__groups">';
+		var dims_array = GCPI.collect_dimensions();
+		for (var j=0; j < dims_array.length; j++) {
+			html += '<div>' + dims_array[j] + '</div>';
+			clipboard += dims_array[j] + '\r\n';
+		}
+		html += '</div>';
 
 		// add copy btn
 		html += '<button class="gcpi__clipboard" data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
 
 		// add div
-		info_div = document.createElement('div');
-		info_div.className = 'gcpi';
-		info_div.style.cssText = GCPI.styles;
-		info_div.innerHTML = html;
-		document.body.appendChild(info_div);
+		var gcpi_container = document.createElement('div');
+		gcpi_container.className = 'gcpi';
+		gcpi_container.style.cssText = GCPI.styles;
+		gcpi_container.innerHTML = html;
+		document.body.appendChild(gcpi_container);
 
 		new Clipboard('.gcpi__clipboard'); // init Clipboard
 
 		return;
+	},
+
+	update_on_resize: function () {
+		var html = '', clipboard = '',
+		dims_container = document.querySelector('.gcpi__groups'),
+		clipboard_data = document.querySelector('.gcpi__clipboard');
+
+		var uaobject_array = GCPI.collect_uaobject();
+		for (var k=0; k < uaobject_array.length; k++) {
+			clipboard += uaobject_array[k] + '\r\n';
+		}
+
+		var dims_array = GCPI.collect_dimensions();
+		for (var j=0; j < dims_array.length; j++) {
+			html += '<div>' + dims_array[j] + '</div>';
+			clipboard += dims_array[j] + '\r\n';
+		}
+
+		dims_container.innerHTML = html;
+		clipboard_data.dataset.clipboardText = clipboard;
 	}
+
 };
-window.addEventListener('hashchange', function() { GCPI.check_hash() }, false);
-GCPI.check_hash();
+
+
+if ( GCPI.check_hash() ) GCPI.append();
+
+window.addEventListener('hashchange', function() {
+	if ( GCPI.check_hash() ) GCPI.append();
+}, false);
+
+window.addEventListener('resize', function() {
+	if ( GCPI.check_hash() ) GCPI.update_on_resize();
+}, false);
