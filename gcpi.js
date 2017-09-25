@@ -66,7 +66,7 @@ var GCPI = {
 		return rows;
 	},
 
-	append: function () {
+	append_html: function () {
 		var html = '', clipboard = '';
 
 		// add uaobject
@@ -87,6 +87,9 @@ var GCPI = {
 		}
 		html += '</div>';
 
+		// add close btn
+		html += '<button class="gcpi__close" type="button" >Close</button>';
+
 		// add copy btn
 		html += '<button class="gcpi__clipboard" data-clipboard-text=\"' + clipboard + '\" type="button" >Copy</button>';
 
@@ -98,7 +101,6 @@ var GCPI = {
 		document.body.appendChild(gcpi_container);
 
 		new Clipboard('.gcpi__clipboard'); // init Clipboard
-
 		return;
 	},
 
@@ -120,15 +122,26 @@ var GCPI = {
 
 		dims_container.innerHTML = html;
 		clipboard_data.dataset.clipboardText = clipboard;
+		return;
+	},
+
+	start: function () {
+		if ( !GCPI.check_hash() ) return;
+		GCPI.append_html();
+		// close btn
+		document.querySelector('.gcpi__close').addEventListener('click', function() {
+			location.replace( location.href.replace('#debug', '') );
+		}, false);
+		return;
 	}
 
 };
 
 
-if ( GCPI.check_hash() ) GCPI.append();
+GCPI.start();
 
 window.addEventListener('hashchange', function() {
-	if ( GCPI.check_hash() ) GCPI.append();
+	GCPI.start();
 }, false);
 
 window.addEventListener('resize', function() {
