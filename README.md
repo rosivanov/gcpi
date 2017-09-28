@@ -7,7 +7,7 @@
 
 ## CDN
 ```html
-<script defer src="https://cdn.jsdelivr.net/gh/rosivanov/gcpi@1.4/dist/gcpi.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/gh/rosivanov/gcpi@1.5/dist/gcpi.min.js"></script>
 ```
 ## npm
 ```sh
