@@ -42,7 +42,7 @@ var GCPI = {
 	},
 
 	collect_uaobject: function () {
-		var rows = [];
+		var rows = []; // strings array
 		for (var category in GCPI.uaobject) {
 			if ( GCPI.uaobject[category] === 'ua' || typeof GCPI.uaobject[category] !== 'object' ) continue;
 			rows.push( category );
@@ -54,13 +54,13 @@ var GCPI = {
 	},
 
 	collect_dimensions: function () {
-		var rows = [],
+		var rows = [], // strings array
 		dims = ['screen', 'viewport', 'document'];
 		for (var index in dims) {
 			var group = dims[index];
 			rows.push( group );
-			for (var groupe_item in GCPI[group]) {
-				rows.push( groupe_item + ': ' + GCPI[group][groupe_item]() );
+			for (var group_item in GCPI[group]) {
+				rows.push( group_item + ': ' + GCPI[group][group_item]() );
 			}
 		}
 		return rows;
@@ -123,26 +123,23 @@ var GCPI = {
 		dims_container.innerHTML = html;
 		clipboard_data.dataset.clipboardText = clipboard;
 		return;
-	},
-
-	start: function () {
-		if ( !GCPI.check_hash() ) return;
-		GCPI.append_html();
-		// close btn
-		document.querySelector('.gcpi__close').addEventListener('click', function() {
-			location.replace( location.href.replace('#debug', '') );
-		}, false);
-		return;
 	}
 
 };
 
 
-GCPI.start();
+for (var event = ['load', 'hashchange'], i = 0; i < event.length; i++) {
+	window.addEventListener( event[i], function() {
+		if ( !GCPI.check_hash() ) return;
+		// append html
+		GCPI.append_html();
+		// close event
+		document.querySelector('.gcpi__close').addEventListener('click', function() {
+			location.replace( location.href.replace('#debug', '') );
+		}, false);
+	}, false);
+}
 
-window.addEventListener('hashchange', function() {
-	GCPI.start();
-}, false);
 
 window.addEventListener('resize', function() {
 	if ( GCPI.check_hash() ) GCPI.update_on_resize();
