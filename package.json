@@ -1,7 +1,7 @@
 {
   "name": "gcpi",
-  "version": "1.0.0",
-  "description": "Get client page info",
+  "version": "1.5",
+  "description": "Screen, viewport, documentElement dimensions. User-agent info. Usefull for remote debug. Get client page info.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
